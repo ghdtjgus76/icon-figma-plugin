@@ -12,7 +12,7 @@ function App() {
   };
 
   return (
-    <Stack justifyContent="center" alignItems="center">
+    <Stack justifyContent="center" alignItems="center" gap="20px">
       <Tabs onChange={handleChange} value={tab}>
         <Tab value={0} label="Deploy" />
         <Tab value={1} label="Setting" />
