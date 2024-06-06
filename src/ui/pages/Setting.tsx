@@ -1,5 +1,5 @@
 import { Button, Stack, TextField } from '@mui/material';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 
 export default function Setting() {
@@ -8,6 +8,31 @@ export default function Setting() {
     githubToken: '',
   });
   const [figmaToken, setFigmaToken] = useState('');
+
+  useEffect(() => {
+    window.parent.postMessage(
+      {
+        pluginMessage: {
+          type: 'getInfo',
+        },
+      },
+      '*',
+    );
+
+    onmessage = (event) => {
+      const { type, payload } = event.data.pluginMessage;
+
+      if (type === 'userInfo' && payload) {
+        const userInfo = payload;
+
+        setGithubInfo({
+          githubRepositoryUrl: userInfo.githubRepositoryUrl,
+          githubToken: userInfo.githubToken,
+        });
+        setFigmaToken(userInfo.figmaToken);
+      }
+    };
+  }, []);
 
   const handleChangeGithubRepositoryUrl = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
