@@ -3,6 +3,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import useData from '../hooks/useData';
 import { UserDataType } from '../../shared/types';
+import { MessageType } from '../../shared/constants';
 
 export default function Setting() {
   const [githubData, setGithubData] = useState({
@@ -45,7 +46,7 @@ export default function Setting() {
     window.parent.postMessage(
       {
         pluginMessage: {
-          type: 'setData',
+          type: MessageType.SetData,
           payload: {
             githubRepositoryUrl: githubData.githubRepositoryUrl,
             githubToken: githubData.githubToken,

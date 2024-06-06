@@ -1,3 +1,5 @@
+import { MessageType } from './constants';
+
 type GithubDataType = {
   githubRepositoryUrl: string;
   githubToken: string;
@@ -11,7 +13,7 @@ export type UserDataType = (GithubDataType & FigmaDataType) | null;
 
 export type UserDataPluginMessage = {
   pluginMessage: {
-    type: 'userData';
+    type: MessageType.UserData;
     payload: UserDataType | null;
   };
 };
