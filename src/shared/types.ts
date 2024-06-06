@@ -8,3 +8,10 @@ type FigmaDataType = {
 };
 
 export type UserDataType = (GithubDataType & FigmaDataType) | null;
+
+export type UserDataPluginMessage = {
+  pluginMessage: {
+    type: 'userData';
+    payload: UserDataType | null;
+  };
+};

@@ -1,4 +1,4 @@
-import { UserDataType } from '../../shared/types';
+import { UserDataPluginMessage, UserDataType } from '../../shared/types';
 
 export default function useData(onSuccess: (userData: UserDataType) => void) {
   window.parent.postMessage(
@@ -10,7 +10,7 @@ export default function useData(onSuccess: (userData: UserDataType) => void) {
     '*',
   );
 
-  onmessage = (event) => {
+  onmessage = (event: MessageEvent<UserDataPluginMessage>) => {
     const { type, payload } = event.data.pluginMessage;
 
     if (type === 'userData' && payload) {
