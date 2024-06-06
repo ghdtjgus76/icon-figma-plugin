@@ -1,5 +1,10 @@
-export type UserInfoType = {
+type GithubDataType = {
   githubRepositoryUrl: string;
   githubToken: string;
+};
+
+type FigmaDataType = {
   figmaToken: string;
-} | null;
+};
+
+export type UserDataType = (GithubDataType & FigmaDataType) | null;

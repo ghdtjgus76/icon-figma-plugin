@@ -1,39 +1,39 @@
 import { Button, Stack, TextField } from '@mui/material';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import useInfo from '../hooks/useInfo';
-import { UserInfoType } from '../../shared/types';
+import useData from '../hooks/useData';
+import { UserDataType } from '../../shared/types';
 
 export default function Setting() {
-  const [githubInfo, setGithubInfo] = useState({
+  const [githubData, setGithubData] = useState({
     githubRepositoryUrl: '',
     githubToken: '',
   });
   const [figmaToken, setFigmaToken] = useState('');
 
   useEffect(() => {
-    useInfo((userInfo: UserInfoType) => {
-      setGithubInfo({
-        githubRepositoryUrl: userInfo.githubRepositoryUrl,
-        githubToken: userInfo.githubToken,
+    useData((userData: UserDataType) => {
+      setGithubData({
+        githubRepositoryUrl: userData.githubRepositoryUrl,
+        githubToken: userData.githubToken,
       });
-      setFigmaToken(userInfo.figmaToken);
+      setFigmaToken(userData.figmaToken);
     });
   }, []);
 
   const handleChangeGithubRepositoryUrl = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) =>
-    setGithubInfo((prevInfo) => ({
-      ...prevInfo,
+    setGithubData((prevData) => ({
+      ...prevData,
       githubRepositoryUrl: e.target.value,
     }));
 
   const handleChangeGithubToken = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) =>
-    setGithubInfo((prevInfo) => ({
-      ...prevInfo,
+    setGithubData((prevData) => ({
+      ...prevData,
       githubToken: e.target.value,
     }));
 
@@ -45,10 +45,10 @@ export default function Setting() {
     window.parent.postMessage(
       {
         pluginMessage: {
-          type: 'setInfo',
+          type: 'setData',
           payload: {
-            githubRepositoryUrl: githubInfo.githubRepositoryUrl,
-            githubToken: githubInfo.githubToken,
+            githubRepositoryUrl: githubData.githubRepositoryUrl,
+            githubToken: githubData.githubToken,
             figmaToken,
           },
         },
@@ -63,7 +63,7 @@ export default function Setting() {
         variant="outlined"
         size="small"
         label="github repository url"
-        value={githubInfo.githubRepositoryUrl}
+        value={githubData.githubRepositoryUrl}
         placeholder="github repository url"
         onChange={handleChangeGithubRepositoryUrl}
       />
@@ -71,7 +71,7 @@ export default function Setting() {
         variant="outlined"
         size="small"
         label="github token"
-        value={githubInfo.githubToken}
+        value={githubData.githubToken}
         placeholder="github token"
         onChange={handleChangeGithubToken}
       />
