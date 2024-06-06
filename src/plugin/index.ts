@@ -1,3 +1,5 @@
+import { UserInfoType } from '../shared/types';
+
 figma.showUI(__html__, { height: 360 });
 
 figma.ui.onmessage = async (message) => {
@@ -6,7 +8,9 @@ figma.ui.onmessage = async (message) => {
   }
 
   if (message.type === 'getInfo') {
-    const userInfo = await figma.clientStorage.getAsync('userInfo');
+    const userInfo: UserInfoType = await figma.clientStorage.getAsync(
+      'userInfo',
+    );
 
     figma.ui.postMessage({
       type: 'userInfo',
