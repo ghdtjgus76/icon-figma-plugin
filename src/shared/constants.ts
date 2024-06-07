@@ -3,4 +3,5 @@ export const enum MessageType {
   GetData = 'GetData',
   UserData = 'UserData',
   ExtractIcon = 'ExtractIcon',
+  CreatePullRequest = 'CreatePullRequest'
 }

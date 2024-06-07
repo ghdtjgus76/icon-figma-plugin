@@ -7,7 +7,7 @@ type GithubApiPropsType = { githubToken: string; owner: string; repo: string };
 type CreatePullRequestParameters =
   RestEndpointMethodTypes['pulls']['create']['parameters'];
 
-export default function githubApi({
+export default function useGithubApi({
   githubToken,
   owner,
   repo,
