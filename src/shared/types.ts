@@ -1,7 +1,8 @@
 import { MessageType } from './constants';
 
-type GithubDataType = {
-  githubRepositoryUrl: string;
+export type GithubDataType = {
+  owner: string;
+  repo: string;
   githubToken: string;
 };
 

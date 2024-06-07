@@ -3,12 +3,13 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import useData from '../hooks/useData';
-import { UserDataType } from '../../shared/types';
+import { UserDataType, GithubDataType } from '../../shared/types';
 import { MessageType } from '../../shared/constants';
 
 export default function Setting() {
   const [githubData, setGithubData] = useState({
-    githubRepositoryUrl: '',
+    owner: '',
+    repo: '',
     githubToken: '',
   });
   const [figmaToken, setFigmaToken] = useState('');
@@ -16,27 +17,21 @@ export default function Setting() {
   useEffect(() => {
     useData((userData: UserDataType) => {
       setGithubData({
-        githubRepositoryUrl: userData.githubRepositoryUrl,
+        owner: userData.owner,
+        repo: userData.repo,
         githubToken: userData.githubToken,
       });
       setFigmaToken(userData.figmaToken);
     });
   }, []);
 
-  const handleChangeGithubRepositoryUrl = (
+  const handleChangeGithubData = (
+    type: keyof GithubDataType,
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) =>
     setGithubData((prevData) => ({
       ...prevData,
-      githubRepositoryUrl: e.target.value,
-    }));
-
-  const handleChangeGithubToken = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) =>
-    setGithubData((prevData) => ({
-      ...prevData,
-      githubToken: e.target.value,
+      [type]: e.target.value,
     }));
 
   const handleChangeFigmaToken = (
@@ -45,7 +40,8 @@ export default function Setting() {
 
   const handleClickReset = () => {
     setGithubData({
-      githubRepositoryUrl: '',
+      owner: '',
+      repo: '',
       githubToken: '',
     });
     setFigmaToken('');
@@ -55,8 +51,8 @@ export default function Setting() {
         pluginMessage: {
           type: MessageType.SetData,
           payload: {
-            githubRepositoryUrl: '',
-            githubToken: '',
+            owner: '',
+            repo: '',
             figmaToken: '',
           },
         },
@@ -71,7 +67,8 @@ export default function Setting() {
         pluginMessage: {
           type: MessageType.SetData,
           payload: {
-            githubRepositoryUrl: githubData.githubRepositoryUrl,
+            owner: githubData.owner,
+            repo: githubData.repo,
             githubToken: githubData.githubToken,
             figmaToken,
           },
@@ -86,18 +83,26 @@ export default function Setting() {
       <TextField
         variant="outlined"
         size="small"
-        label="github repository url"
-        value={githubData.githubRepositoryUrl}
-        placeholder="github repository url"
-        onChange={handleChangeGithubRepositoryUrl}
+        label="github owner name"
+        value={githubData.owner}
+        placeholder="github owner name"
+        onChange={(event) => handleChangeGithubData('owner', event)}
+      />
+      <TextField
+        variant="outlined"
+        size="small"
+        label="github repository name"
+        value={githubData.repo}
+        placeholder="github repository name"
+        onChange={(event) => handleChangeGithubData('repo', event)}
       />
       <TextField
         variant="outlined"
         size="small"
         label="github token"
-        value={githubData.githubToken}
+        value={githubData.repo}
         placeholder="github token"
-        onChange={handleChangeGithubToken}
+        onChange={(event) => handleChangeGithubData('githubToken', event)}
       />
       <TextField
         variant="outlined"
