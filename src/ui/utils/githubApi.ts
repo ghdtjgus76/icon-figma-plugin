@@ -20,31 +20,35 @@ export default function githubApi({
     auth: githubToken,
   });
 
+  // TODO 세부 내용 동적으로 불러올 수 있도록 수정
   const createPR = async () => {
-    octokit.createPullRequest({
-      owner,
-      repo,
-      title: 'Feature: 아이콘 변경사항 반영',
-      body: '피그마 상 아이콘 변경사항 반영했습니다.',
-      head: 'icons',
-      base: 'main',
-      changes: [
-        {
-          files: { path: 'packages/icons/icons.json', content: svgIcons },
-          commit: 'feature: 아이콘 변경사항 반영',
-          author: {
-            name: 'ghdtjgus76',
-            email: 'ghdtjgus76@naver.com',
-            date: new Date().toISOString(),
+    octokit
+      .createPullRequest({
+        owner,
+        repo,
+        title: 'Feature: 아이콘 변경사항 반영',
+        body: '피그마상 아이콘 변경사항 반영했습니다.',
+        head: 'icons2',
+        base: 'main',
+        update: true,
+        changes: [
+          {
+            files: { 'packages/icons/icons.json': svgIcons },
+            commit: 'feature: 아이콘 변경사항 반영',
+            author: {
+              name: 'ghdtjgus76',
+              email: 'ghdtjgus76@naver.com',
+              date: new Date().toISOString(),
+            },
+            committer: {
+              name: 'ghdtjgus76',
+              email: 'ghdtjgus76@naver.com',
+              date: new Date().toISOString(),
+            },
           },
-          committer: {
-            name: 'ghdtjgus76',
-            email: 'ghdtjgus76@naver.com',
-            date: new Date().toISOString(),
-          },
-        },
-      ],
-    });
+        ],
+      })
+      .then((pr) => console.log(pr.data.id));
   };
 
   return createPR;
