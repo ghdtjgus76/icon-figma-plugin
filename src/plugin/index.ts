@@ -24,7 +24,7 @@ const extractIcons = async (): Promise<SvgIconsType> => {
   const svgIconObj: SvgIconsType = svgIcons.reduce(
     (acc, { svg, id }) => ({
       ...acc,
-      [id]: svg,
+      [id]: { svg, name: id },
     }),
     {},
   );
