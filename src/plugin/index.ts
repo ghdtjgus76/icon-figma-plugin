@@ -48,10 +48,13 @@ figma.ui.onmessage = async (message) => {
 
   if (message.type === MessageType.ExtractIcon) {
     const svgIcons = await extractIcons();
+    const { githubToken, owner, repo } = await getStorageData(
+      StorageKey.UserData,
+    );
 
     figma.ui.postMessage({
       type: MessageType.CreatePullRequest,
-      payload: JSON.stringify(svgIcons),
+      payload: { svgIcons: JSON.stringify(svgIcons), githubToken, owner, repo },
     });
   }
 };

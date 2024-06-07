@@ -1,5 +1,5 @@
 import { Button, Stack, TextField } from '@mui/material';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import useData from '../hooks/useData';
@@ -100,7 +100,7 @@ export default function Setting() {
         variant="outlined"
         size="small"
         label="github token"
-        value={githubData.repo}
+        value={githubData.githubToken}
         placeholder="github token"
         onChange={(event) => handleChangeGithubData('githubToken', event)}
       />

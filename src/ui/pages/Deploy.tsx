@@ -1,10 +1,11 @@
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
-import React, { useEffect } from 'react';
 import { Stack } from '@mui/material';
 import { MessageType } from '../../shared/constants';
 import { CreatePullRequestPluginMessage } from '../../shared/types';
-import { createPullRequest } from '../utils/createPullRequest';
+import { useEffect } from 'react';
+import React from 'react';
+import githubApi from '../utils/githubApi';
 
 export default function Deploy() {
   const handleClickDeploy = () => {
@@ -20,10 +21,19 @@ export default function Deploy() {
 
   useEffect(() => {
     onmessage = (event: MessageEvent<CreatePullRequestPluginMessage>) => {
-      const { type, payload } = event.data.pluginMessage;
+      const {
+        type,
+        payload: { githubToken, owner, repo, svgIcons },
+      } = event.data.pluginMessage;
+      const createPullRequest = githubApi({
+        githubToken,
+        owner,
+        repo,
+        svgIcons,
+      });
 
-      if (type === MessageType.CreatePullRequest && payload) {
-        createPullRequest(payload);
+      if (type === MessageType.CreatePullRequest) {
+        createPullRequest();
       }
     };
   }, []);

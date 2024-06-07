@@ -22,7 +22,12 @@ export type UserDataPluginMessage = {
 export type CreatePullRequestPluginMessage = {
   pluginMessage: {
     type: MessageType.CreatePullRequest;
-    payload: string;
+    payload: {
+      svgIcons: string;
+      githubToken: string;
+      owner: string;
+      repo: string;
+    };
   };
 };
 
