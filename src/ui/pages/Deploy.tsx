@@ -25,14 +25,15 @@ export default function Deploy() {
         type,
         payload: { githubToken, owner, repo, svgIcons },
       } = event.data.pluginMessage;
-      const createPullRequest = githubApi({
-        githubToken,
-        owner,
-        repo,
-        svgIcons,
-      });
 
       if (type === MessageType.CreatePullRequest) {
+        const createPullRequest = githubApi({
+          githubToken,
+          owner,
+          repo,
+          svgIcons,
+        });
+
         createPullRequest();
       }
     };
