@@ -1,4 +1,4 @@
-const gitConfig = {
+export const gitConfig = {
   title: 'Feature: 아이콘 변경사항 반영',
   body: '피그마상 아이콘 변경사항 반영했습니다.',
   head: 'feature/icon',

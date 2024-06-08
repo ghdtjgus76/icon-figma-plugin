@@ -1,5 +1,6 @@
 import { Octokit } from '@octokit/core';
 import { createPullRequest } from 'octokit-plugin-create-pull-request';
+import { gitConfig } from '../gitConfig';
 
 type GithubApiPropsType = {
   githubToken: string;
